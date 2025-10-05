@@ -1,0 +1,11 @@
+# Альтернативная конфигурация для Render с Docker
+# Переименуйте этот файл в render.yaml если хотите использовать Docker на Render
+services:
+  - type: web
+    name: stellar-stories
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+
