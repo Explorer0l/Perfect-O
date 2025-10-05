@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BookPage from './BookPage';
 import { Scene, sceneImages } from '@/data/story';
+import Image from 'next/image';
 
 interface Book3DProps {
   scenes: Scene[];
@@ -15,8 +16,36 @@ interface Book3DProps {
 export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene, bookOpenProgress }: Book3DProps) {
   const [isFlipping, setIsFlipping] = useState(false);
   const [displayedSceneIndex, setDisplayedSceneIndex] = useState(currentSceneIndex);
+  const [nextSceneIndex, setNextSceneIndex] = useState(currentSceneIndex);
   const [flipDirection, setFlipDirection] = useState<'forward' | 'backward'>('forward');
   const previousSceneRef = useRef(currentSceneIndex);
+  const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set());
+
+  // Preload images for current, next, and previous scenes
+  useEffect(() => {
+    const preloadImages = () => {
+      const imagesToPreload = [
+        currentSceneIndex - 1,
+        currentSceneIndex,
+        currentSceneIndex + 1,
+        currentSceneIndex + 2,
+      ].filter(idx => idx >= 0 && idx < scenes.length);
+
+      imagesToPreload.forEach(idx => {
+        const scene = scenes[idx];
+        const imageUrl = sceneImages[scene.id];
+        if (imageUrl && !imagesLoaded.has(scene.id)) {
+          const img = new window.Image();
+          img.src = imageUrl;
+          img.onload = () => {
+            setImagesLoaded(prev => new Set([...prev, scene.id]));
+          };
+        }
+      });
+    };
+
+    preloadImages();
+  }, [currentSceneIndex, scenes, imagesLoaded]);
 
   useEffect(() => {
     // Only flip pages when book is fully open (not during opening/closing)
@@ -24,17 +53,18 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
       // Determine flip direction
       const direction = currentSceneIndex > previousSceneRef.current ? 'forward' : 'backward';
       setFlipDirection(direction);
+      setNextSceneIndex(currentSceneIndex);
       setIsFlipping(true);
       
-      // Update displayed scene after flip animation starts
+      // Update displayed scene in the middle of flip animation
       const timer = setTimeout(() => {
         setDisplayedSceneIndex(currentSceneIndex);
-      }, 400); // Half of flip animation
+      }, 600); // Half of animation time for smooth transition
       
       const endTimer = setTimeout(() => {
         setIsFlipping(false);
         previousSceneRef.current = currentSceneIndex;
-      }, 800);
+      }, 1200); // Slower, more elegant animation
       
       return () => {
         clearTimeout(timer);
@@ -48,12 +78,15 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
     // Update displayed scene immediately if book is not open enough for animation
     if (bookOpenProgress < 0.95 && previousSceneRef.current !== currentSceneIndex) {
       setDisplayedSceneIndex(currentSceneIndex);
+      setNextSceneIndex(currentSceneIndex);
       previousSceneRef.current = currentSceneIndex;
     }
   }, [currentSceneIndex, bookOpenProgress]);
 
   const currentScene = scenes[displayedSceneIndex];
+  const nextScene = scenes[nextSceneIndex];
   const imageUrl = sceneImages[currentScene.id];
+  const nextImageUrl = sceneImages[nextScene.id];
 
   // Calculate book dimensions
   const bookWidth = 1400; // Total width when open
@@ -153,11 +186,11 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
           <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-cosmic-cyan/50 via-cosmic-purple/50 to-cosmic-blue/50 blur-sm" />
         </motion.div>
 
-        {/* Animated Flipping Page - only show when book is fully open */}
+        {/* Animated Flipping Page with content - only show when book is fully open */}
         <AnimatePresence mode="wait">
           {isFlipping && bookOpenProgress >= 0.95 && (
             <motion.div
-              key={`flip-${currentSceneIndex}`}
+              key={`flip-${nextSceneIndex}`}
               className="absolute top-0 bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl border-2 border-cosmic-cyan/30 overflow-hidden pointer-events-none"
               style={{
                 width: `${pageWidth}px`,
@@ -166,6 +199,7 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
                 right: flipDirection === 'backward' ? '50%' : 'auto',
                 transformOrigin: flipDirection === 'forward' ? 'left center' : 'right center',
                 zIndex: 20,
+                backfaceVisibility: 'hidden',
               }}
               initial={{
                 rotateY: 0,
@@ -175,21 +209,32 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
                 rotateY: flipDirection === 'forward' ? -180 : 180,
                 boxShadow: [
                   '0 0 40px rgba(6, 182, 212, 0.5)',
-                  '0 0 60px rgba(139, 92, 246, 0.7)',
-                  '0 0 40px rgba(6, 182, 212, 0.5)',
+                  '0 0 80px rgba(139, 92, 246, 0.8)',
+                  '0 0 60px rgba(6, 182, 212, 0.6)',
+                  '0 0 40px rgba(139, 92, 246, 0.5)',
                 ],
               }}
               exit={{
                 opacity: 0,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.3 }
               }}
               transition={{
-                duration: 0.8,
-                ease: [0.4, 0, 0.2, 1],
+                duration: 1.2,
+                ease: [0.25, 0.46, 0.45, 0.94], // Более плавная кривая easeInOutQuad
               }}
             >
-              {/* Page texture overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5" />
+              {/* Page texture overlay with animated gradient */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5"
+                animate={{
+                  background: [
+                    'linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                    'linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.15), rgba(255,255,255,0.1))',
+                    'linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
+                  ]
+                }}
+                transition={{ duration: 1.2 }}
+              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -200,14 +245,35 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
             <motion.div
               className="absolute inset-0 pointer-events-none z-15"
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.5, 0] }}
+              animate={{ opacity: [0, 0.4, 0.7, 0.4, 0] }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
             >
-              <div className="w-full h-full bg-gradient-to-r from-transparent via-cosmic-cyan/20 to-transparent" />
+              <div className="w-full h-full bg-gradient-to-r from-transparent via-cosmic-cyan/30 to-transparent" />
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Hidden preload images */}
+        <div className="hidden">
+          {[currentSceneIndex - 1, currentSceneIndex + 1, currentSceneIndex + 2].map((idx) => {
+            if (idx >= 0 && idx < scenes.length) {
+              const scene = scenes[idx];
+              const preloadUrl = sceneImages[scene.id];
+              return preloadUrl ? (
+                <Image
+                  key={`preload-${scene.id}`}
+                  src={preloadUrl}
+                  alt="Preload"
+                  width={1}
+                  height={1}
+                  priority
+                />
+              ) : null;
+            }
+            return null;
+          })}
+        </div>
 
         {/* Outer glow effect */}
         <div className="absolute -inset-4 bg-gradient-to-r from-cosmic-purple/20 via-cosmic-cyan/20 to-cosmic-blue/20 blur-3xl -z-10 animate-pulse-slow" />

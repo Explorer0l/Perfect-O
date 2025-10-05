@@ -4,8 +4,9 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import StarryBackground from '@/components/StarryBackground';
 import Book3D from '@/components/Book3D';
-import { storyData } from '@/data/story';
+import { storyData, sceneImages } from '@/data/story';
 import { BookOpen, ArrowDown } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -16,6 +17,24 @@ export default function Home() {
   
   const containerRef = useRef<HTMLDivElement>(null);
   const totalScenes = storyData.length;
+
+  // Preload first few images on mount
+  useEffect(() => {
+    const preloadInitialImages = () => {
+      [0, 1, 2].forEach(idx => {
+        if (idx < storyData.length) {
+          const scene = storyData[idx];
+          const imageUrl = sceneImages[scene.id];
+          if (imageUrl) {
+            const img = new window.Image();
+            img.src = imageUrl;
+          }
+        }
+      });
+    };
+    
+    preloadInitialImages();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,6 +110,23 @@ export default function Home() {
   return (
     <>
       <StarryBackground />
+      
+      {/* Preload all images in hidden div */}
+      <div className="hidden">
+        {storyData.map((scene) => {
+          const imageUrl = sceneImages[scene.id];
+          return imageUrl ? (
+            <Image
+              key={`preload-${scene.id}`}
+              src={imageUrl}
+              alt="Preload"
+              width={1}
+              height={1}
+              priority={scene.id <= 3}
+            />
+          ) : null;
+        })}
+      </div>
       
       <div ref={containerRef} style={{ height: `${totalScrollHeight}px` }}>
         <div className="fixed inset-0 flex items-center justify-center pointer-events-none">

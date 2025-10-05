@@ -14,6 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical images */}
+        <link rel="preload" href="/images/scene1.png" as="image" />
+        <link rel="preload" href="/images/scene2.png" as="image" />
+        <link rel="preload" href="/images/scene3.png" as="image" />
+      </head>
       <body className="bg-slate-950 text-white">
         {children}
       </body>

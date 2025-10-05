@@ -75,18 +75,25 @@ export default function BookPage({ content, imageUrl, lines, visibleLines, isLef
   if (content === 'image' && imageUrl) {
     return (
       <div className="relative w-full h-full p-8 flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl border-2 border-cosmic-cyan/30">
+        <motion.div 
+          className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl border-2 border-cosmic-cyan/30"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <Image
             src={imageUrl}
             alt="Scene illustration"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+            loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
           {/* Holographic effect overlay */}
           <div className="absolute inset-0 bg-gradient-to-tr from-cosmic-cyan/10 via-transparent to-cosmic-purple/10 animate-pulse-slow" />
-        </div>
+        </motion.div>
       </div>
     );
   }
