@@ -79,7 +79,7 @@ export default function Home() {
       // Calculate visible lines based on progress in scene
       const currentScene = storyData[finalSceneIndex];
       const totalLines = currentScene.lines.length;
-      const maxVisibleLines = 6; // Maximum lines visible at once
+      const maxVisibleLines = 4; // Maximum lines visible at once (reduced for large text)
       
       // Calculate how many lines should be visible
       const linesToShow = Math.ceil(progressInScene * totalLines);
@@ -161,28 +161,6 @@ export default function Home() {
             visibleLinesInScene={visibleLinesInScene}
             bookOpenProgress={bookOpenProgress}
           />
-
-          {/* Progress indicator */}
-          {bookOpenProgress > 0.3 && bookOpenProgress < 0.95 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <div className="text-xl text-gray-400 font-medium">
-                  Scene {currentSceneIndex + 1} of {totalScenes}
-                </div>
-                <div className="w-64 h-1 bg-slate-700 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-cosmic-cyan to-cosmic-purple"
-                    style={{ width: `${(currentSceneIndex + 1) / totalScenes * 100}%` }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-          )}
 
           {/* Scroll hint */}
           <AnimatePresence>
