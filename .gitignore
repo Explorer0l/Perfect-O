@@ -33,7 +33,6 @@ yarn-error.log*
 next-env.d.ts
 
 # audio files (too large for git)
-/public/sounds/*.mp3
 /public/sounds/*.wav
 /public/sounds/*.ogg
 /public/sounds/voices/
