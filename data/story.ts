@@ -192,24 +192,25 @@ export const storyData: Scene[] = [
       { type: 'narration', text: 'Montage of Sun, Earth, auroras, astronaut, satellites, and the three friends.' },
       { type: 'dialogue', character: 'Khurshed', text: 'Every beam of light that touches Earth comes from the same star that wakes me up every morning.' },
       { type: 'dialogue', character: 'Khurshed', text: 'So next time your phone glows or your lights turn on — just remember, the Sun and you are talking.' },
-      { type: 'narration', text: 'Fade to Sunlight logo / NASA Space Apps Challenge title.' },
+      { type: 'narration', text: 'The camera slowly fades as the stars twinkle above.' },
     ]
   }
 ];
 
-// Placeholder images (using space-themed stock images)
+// Local images from public/images directory
 export const sceneImages: { [key: number]: string } = {
-  1: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800',
-  2: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800',
-  3: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800',
-  4: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800',
-  5: 'https://images.unsplash.com/photo-1436262513933-a0b06755c784?w=800',
-  6: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800',
-  7: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800',
-  8: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800',
-  9: 'https://images.unsplash.com/photo-1454789476662-53eb23ba5907?w=800',
-  10: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800',
-  11: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800',
-  12: 'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=800',
-  13: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800',
+  1: '/images/scene1.png',
+  2: '/images/scene2.png',
+  3: '/images/scene3.png',
+  4: '/images/scene4.png',
+  5: '/images/scene5.png',
+  6: '/images/scene6.png',
+  7: '/images/scene7.png',
+  8: '/images/scene8.png',
+  9: '/images/scene9.png',
+  10: '/images/scene10.png',
+  11: '/images/scene11.png',
+  12: '/images/scene12.png',
+  13: '/images/scene13.png',
+  14: '/images/scene14.png',
 };

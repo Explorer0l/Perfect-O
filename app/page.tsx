@@ -161,38 +161,6 @@ export default function Home() {
             )}
           </AnimatePresence>
 
-          {/* End message */}
-          <AnimatePresence>
-            {scrollProgress > 0.95 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 text-center"
-              >
-                <motion.div
-                  animate={{ 
-                    scale: [1, 1.05, 1],
-                    textShadow: [
-                      '0 0 20px rgba(59, 130, 246, 0.5)',
-                      '0 0 40px rgba(139, 92, 246, 0.7)',
-                      '0 0 20px rgba(59, 130, 246, 0.5)',
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="text-4xl font-bold mb-4 bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-pink bg-clip-text text-transparent"
-                >
-                  Thank you for reading!
-                </motion.div>
-                <p className="text-xl text-gray-300 mb-2">
-                  Created for NASA Space Apps Challenge 2024
-                </p>
-                <p className="text-sm text-gray-400">
-                  Space weather connects us all 🌟
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
 
