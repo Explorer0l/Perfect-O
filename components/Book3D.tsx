@@ -56,6 +56,9 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
       setNextSceneIndex(currentSceneIndex);
       setIsFlipping(true);
       
+      // Trigger star pulse effect on page flip
+      window.dispatchEvent(new Event('pageFlip'));
+      
       // Update displayed scene in the middle of flip animation
       const timer = setTimeout(() => {
         setDisplayedSceneIndex(currentSceneIndex);

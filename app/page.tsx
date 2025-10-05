@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import StarryBackground from '@/components/StarryBackground';
 import Book3D from '@/components/Book3D';
+import AudioPlayer from '@/components/AudioPlayer';
 import { storyData, sceneImages } from '@/data/story';
 import { BookOpen, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
@@ -110,6 +111,7 @@ export default function Home() {
   return (
     <>
       <StarryBackground />
+      <AudioPlayer autoPlay={true} />
       
       {/* Preload all images in hidden div */}
       <div className="hidden">
