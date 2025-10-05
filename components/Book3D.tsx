@@ -125,11 +125,14 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
       >
         {/* Left Page */}
         <motion.div
-          className="absolute left-0 bg-gradient-to-br from-slate-900 to-slate-800 rounded-l-xl shadow-2xl border-l-2 border-t-2 border-b-2 border-cosmic-purple/40 overflow-hidden"
+          className="absolute left-0 rounded-l-xl shadow-2xl border-l-2 border-t-2 border-b-2 border-cosmic-purple/40 overflow-hidden"
           style={{
             ...leftPageStyle,
             width: `${pageWidth}px`,
             height: '100%',
+            backgroundImage: 'url(/images/BG.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             boxShadow: '0 0 30px rgba(139, 92, 246, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.5)',
           }}
         >
@@ -167,11 +170,14 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
 
         {/* Right Page */}
         <motion.div
-          className="absolute right-0 bg-gradient-to-bl from-slate-900 to-slate-800 rounded-r-xl shadow-2xl border-r-2 border-t-2 border-b-2 border-cosmic-blue/40 overflow-hidden"
+          className="absolute right-0 rounded-r-xl shadow-2xl border-r-2 border-t-2 border-b-2 border-cosmic-blue/40 overflow-hidden"
           style={{
             ...rightPageStyle,
             width: `${pageWidth}px`,
             height: '100%',
+            backgroundImage: 'url(/images/BG.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             boxShadow: '0 0 30px rgba(59, 130, 246, 0.3), inset 0 0 60px rgba(0, 0, 0, 0.5)',
           }}
         >
@@ -194,7 +200,7 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
           {isFlipping && bookOpenProgress >= 0.95 && (
             <motion.div
               key={`flip-${nextSceneIndex}`}
-              className="absolute top-0 bg-gradient-to-br from-slate-900 to-slate-800 shadow-2xl border-2 border-cosmic-cyan/30 overflow-hidden pointer-events-none"
+              className="absolute top-0 shadow-2xl border-2 border-cosmic-cyan/30 overflow-hidden pointer-events-none"
               style={{
                 width: `${pageWidth}px`,
                 height: '100%',
@@ -203,6 +209,9 @@ export default function Book3D({ scenes, currentSceneIndex, visibleLinesInScene,
                 transformOrigin: flipDirection === 'forward' ? 'left center' : 'right center',
                 zIndex: 20,
                 backfaceVisibility: 'hidden',
+                backgroundImage: 'url(/images/BG.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
               initial={{
                 rotateY: 0,

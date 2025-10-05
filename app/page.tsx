@@ -141,13 +141,13 @@ export default function Home() {
                 exit={{ opacity: 0, y: -50 }}
                 className="absolute top-20 z-20 text-center"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <BookOpen className="w-12 h-12 text-cosmic-cyan animate-pulse" />
-                  <h1 className="text-6xl font-bold text-glow bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-pink bg-clip-text text-transparent">
+                <div className="flex items-center gap-4 mb-6">
+                  <BookOpen className="w-16 h-16 text-cosmic-cyan animate-pulse" />
+                  <h1 className="text-8xl font-bold text-glow bg-gradient-to-r from-cosmic-cyan via-cosmic-purple to-cosmic-pink bg-clip-text text-transparent">
                     Stellar Stories
                   </h1>
                 </div>
-                <p className="text-xl text-gray-300 font-light">
+                <p className="text-3xl text-gray-300">
                   Space Weather Through the Eyes of Earthlings
                 </p>
               </motion.div>
@@ -170,7 +170,7 @@ export default function Home() {
               className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
             >
               <div className="flex flex-col items-center gap-2">
-                <div className="text-sm text-gray-400">
+                <div className="text-xl text-gray-400 font-medium">
                   Scene {currentSceneIndex + 1} of {totalScenes}
                 </div>
                 <div className="w-64 h-1 bg-slate-700 rounded-full overflow-hidden">
@@ -193,8 +193,8 @@ export default function Home() {
                 exit={{ opacity: 0, y: 20 }}
                 className="absolute bottom-12 z-20 flex flex-col items-center gap-2 text-cosmic-cyan animate-float"
               >
-                <span className="text-sm font-light">Scroll to begin your journey</span>
-                <ArrowDown className="w-6 h-6 animate-bounce" />
+                <span className="text-2xl font-medium">Scroll to begin your journey</span>
+                <ArrowDown className="w-8 h-8 animate-bounce" />
               </motion.div>
             )}
           </AnimatePresence>

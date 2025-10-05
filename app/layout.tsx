@@ -19,6 +19,13 @@ export default function RootLayout({
         <link rel="preload" href="/images/scene1.png" as="image" />
         <link rel="preload" href="/images/scene2.png" as="image" />
         <link rel="preload" href="/images/scene3.png" as="image" />
+        {/* Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Caveat - для главной страницы */}
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        {/* Patrick Hand - для текста книги (читаемый) */}
+        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-slate-950 text-white">
         {children}

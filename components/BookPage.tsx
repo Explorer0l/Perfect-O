@@ -37,36 +37,36 @@ export default function BookPage({ content, imageUrl, lines, visibleLines, isLef
     switch (type) {
       case 'dialogue':
         return {
-          className: 'text-base leading-relaxed mb-3',
+          className: 'text-2xl leading-loose mb-5',
           prefix: character ? (
-            <span className={`font-bold ${getCharacterColor(character)} drop-shadow-[0_0_8px_currentColor]`}>
+            <span className={`font-bold text-3xl ${getCharacterColor(character)} drop-shadow-[0_0_10px_currentColor]`}>
               {character}:{' '}
             </span>
           ) : null,
         };
       case 'narration':
         return {
-          className: 'text-sm italic text-gray-300 leading-relaxed mb-2',
+          className: 'text-xl italic text-gray-300 leading-loose mb-4',
           prefix: null,
         };
       case 'didYouKnow':
         return {
-          className: 'text-sm leading-relaxed mb-4 p-4 rounded-lg bg-gradient-to-r from-cosmic-purple/20 to-cosmic-blue/20 border border-cosmic-cyan/30',
+          className: 'text-xl leading-loose mb-5 p-5 rounded-lg bg-gradient-to-r from-cosmic-purple/20 to-cosmic-blue/20 border border-cosmic-cyan/30',
           prefix: (
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-4 h-4 text-cosmic-cyan animate-pulse" />
-              <span className="font-bold text-cosmic-cyan">Did you know?</span>
+            <div className="flex items-center gap-3 mb-3">
+              <Sparkles className="w-6 h-6 text-cosmic-cyan animate-pulse" />
+              <span className="font-bold text-2xl text-cosmic-cyan">Did you know?</span>
             </div>
           ),
         };
       case 'stage':
         return {
-          className: 'text-sm text-gray-400 italic leading-relaxed mb-2',
+          className: 'text-xl text-gray-400 italic leading-loose mb-4',
           prefix: null,
         };
       default:
         return {
-          className: 'text-base leading-relaxed mb-3',
+          className: 'text-2xl leading-loose mb-5',
           prefix: null,
         };
     }
@@ -100,9 +100,9 @@ export default function BookPage({ content, imageUrl, lines, visibleLines, isLef
 
   if (content === 'text' && lines) {
     return (
-      <div className="relative w-full h-full p-10 flex flex-col overflow-hidden">
-        {/* Page texture overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-slate-800/50 opacity-30" />
+      <div className="relative w-full h-full p-10 flex flex-col overflow-hidden story-text">
+        {/* Page texture overlay - полупрозрачный слой для читаемости текста */}
+        <div className="absolute inset-0 bg-black/30" />
         
         {/* Content container */}
         <div className="relative flex-1 flex flex-col justify-center space-y-4 text-white overflow-y-auto custom-scrollbar">

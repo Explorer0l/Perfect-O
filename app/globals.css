@@ -9,11 +9,16 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* Caveat для главной страницы по умолчанию */
+  font-family: 'Caveat', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Patrick Hand для текста книги - более читаемый */
+.story-text {
+  font-family: 'Patrick Hand', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* Custom scrollbar */
