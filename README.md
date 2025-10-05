@@ -106,14 +106,38 @@ The story follows three friends - Khurshed, Mehrob, and Rawshan - as they learn 
 
 ## 🌐 Deployment
 
-Deploy easily on Vercel:
+### Option 1: Docker (рекомендуется)
+
+```bash
+# Быстрый старт с Docker Compose
+docker-compose up --build
+
+# Или вручную
+docker build -t stellar-stories .
+docker run -p 3000:3000 stellar-stories
+```
+
+Подробная инструкция в [DOCKER.md](./DOCKER.md)
+
+### Option 2: Vercel
 
 ```bash
 npm run build
 # Follow Vercel deployment instructions
 ```
 
-Or use any other hosting platform that supports Next.js.
+### Option 3: Render.com
+
+Используйте `render.yaml` (Node.js) или `render-docker.yaml` (Docker) для автоматического деплоя.
+
+### Option 4: Другие платформы
+
+Проект поддерживает деплой на любую платформу с Docker:
+- AWS ECS
+- Google Cloud Run
+- Azure Container Instances
+- DigitalOcean App Platform
+- Heroku
 
 ## 📝 Credits
 

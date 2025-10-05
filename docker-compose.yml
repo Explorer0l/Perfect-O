@@ -1,14 +1,41 @@
 version: '3.8'
 
 services:
-  web:
+  # Next.js приложение
+  nextjs:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     environment:
       - NODE_ENV=production
+      - PORT=3000
     restart: unless-stopped
-    container_name: stellar-stories
+    container_name: stellar-stories-app
+    # Не открываем порты наружу - только для nginx
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  # Nginx reverse proxy
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - nextjs
+    restart: unless-stopped
+    container_name: stellar-stories-nginx
+    networks:
+      - app-network
+    volumes:
+      # Для SSL сертификатов (опционально)
+      # - ./nginx/ssl:/etc/nginx/ssl:ro
+
+networks:
+  app-network:
+    driver: bridge
 
